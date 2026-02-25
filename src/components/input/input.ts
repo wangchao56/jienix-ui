@@ -1,5 +1,5 @@
 /**
- * Input 输入框组件 - 现代风格
+ * Input 输入框组件 - 黑白灰系配色
  */
 
 import { html, css, CSSResultGroup } from 'lit';
@@ -24,10 +24,7 @@ export class MyInput extends BaseElement {
   static override styles: CSSResultGroup = [
     ...BaseElement.styles,
     css`
-      :host {
-        display: inline-block;
-        width: 100%;
-      }
+      :host { display: inline-block; width: 100%; }
 
       .input-wrapper {
         display: flex;
@@ -39,116 +36,40 @@ export class MyInput extends BaseElement {
         overflow: hidden;
       }
 
-      .input-wrapper:hover:not(.disabled) {
-        border-color: var(--color-border-hover);
-      }
+      .input-wrapper:hover:not(.disabled) { border-color: var(--color-border-hover); }
+      .input-wrapper.focused { border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-light); }
+      .input-wrapper.error { border-color: var(--color-error); }
+      .input-wrapper.error.focused { box-shadow: 0 0 0 3px #fee2e2; }
+      .input-wrapper.disabled { background: var(--color-background-secondary); cursor: not-allowed; opacity: 0.6; }
 
-      .input-wrapper.focused {
-        border-color: var(--color-primary);
-        box-shadow: 0 0 0 3px var(--color-primary-light);
-      }
+      .prefix, .suffix { display: flex; align-items: center; padding: 0 var(--spacing-sm); color: var(--color-text-tertiary); font-size: var(--font-size-sm); white-space: nowrap; }
+      .prefix { padding-right: 0; }
+      .suffix { padding-left: 0; }
 
-      .input-wrapper.error {
-        border-color: var(--color-error);
-      }
-
-      .input-wrapper.error.focused {
-        box-shadow: 0 0 0 3px var(--color-error-light);
-      }
-
-      .input-wrapper.disabled {
-        background: var(--color-background-secondary);
-        cursor: not-allowed;
-        opacity: 0.6;
-      }
-
-      /* 前缀/后缀 */
-      .prefix, .suffix {
-        display: flex;
-        align-items: center;
-        padding: 0 var(--spacing-sm);
-        color: var(--color-text-tertiary);
-        font-size: var(--font-size-sm);
-        white-space: nowrap;
-      }
-
-      .prefix {
-        padding-right: 0;
-      }
-
-      .suffix {
-        padding-left: 0;
-      }
-
-      /* 输入框 */
       input {
-        flex: 1;
-        width: 100%;
-        height: 100%;
-        border: none;
-        outline: none;
-        background: transparent;
-        font-family: var(--font-family);
-        color: var(--color-text);
+        flex: 1; width: 100%; height: 100%;
+        border: none; outline: none; background: transparent;
+        font-family: var(--font-family); color: var(--color-text);
       }
+      input::placeholder { color: var(--color-text-tertiary); }
+      input:disabled { cursor: not-allowed; }
 
-      input::placeholder {
-        color: var(--color-text-tertiary);
-      }
+      .input-wrapper.sm { height: 32px; }
+      .input-wrapper.sm input { padding: 4px 10px; font-size: var(--font-size-sm); }
+      .input-wrapper.md { height: 36px; }
+      .input-wrapper.md input { padding: 6px 12px; font-size: var(--font-size-sm); }
+      .input-wrapper.lg { height: 44px; }
+      .input-wrapper.lg input { padding: 8px 14px; font-size: var(--font-size-md); }
 
-      input:disabled {
-        cursor: not-allowed;
-      }
-
-      /* 尺寸 */
-      .input-wrapper.sm {
-        height: 32px;
-      }
-      .input-wrapper.sm input {
-        padding: 4px 10px;
-        font-size: var(--font-size-sm);
-      }
-      
-      .input-wrapper.md {
-        height: 36px;
-      }
-      .input-wrapper.md input {
-        padding: 6px 12px;
-        font-size: var(--font-size-sm);
-      }
-      
-      .input-wrapper.lg {
-        height: 44px;
-      }
-      .input-wrapper.lg input {
-        padding: 8px 14px;
-        font-size: var(--font-size-md);
-      }
-
-      /* 清除按钮 */
       .clear-btn {
-        display: none;
-        padding: 0 var(--spacing-sm);
-        color: var(--color-text-tertiary);
-        cursor: pointer;
-        font-size: var(--font-size-sm);
-        transition: color var(--transition-fast);
+        display: none; padding: 0 var(--spacing-sm);
+        color: var(--color-text-tertiary); cursor: pointer;
+        font-size: var(--font-size-sm); transition: color var(--transition-fast);
       }
+      .clear-btn:hover { color: var(--color-text); }
+      .input-wrapper.has-value:not(.disabled) .clear-btn { display: flex; }
 
-      .clear-btn:hover {
-        color: var(--color-text);
-      }
-
-      .input-wrapper.has-value:not(.disabled) .clear-btn {
-        display: flex;
-      }
-
-      /* 错误消息 */
-      .error-message {
-        margin-top: var(--spacing-xs);
-        color: var(--color-error);
-        font-size: var(--font-size-xs);
-      }
+      .error-message { margin-top: var(--spacing-xs); color: var(--color-error); font-size: var(--font-size-xs); }
     `,
   ];
 
@@ -160,18 +81,9 @@ export class MyInput extends BaseElement {
     this.emit('input', this.value);
   }
 
-  private handleFocus() {
-    this._focused = true;
-    this.emit('focus');
-    this.requestUpdate();
-  }
-
-  private handleBlur() {
-    this._focused = false;
-    this.emit('blur');
-    this.requestUpdate();
-  }
-
+  private handleFocus() { this._focused = true; this.emit('focus'); this.requestUpdate(); }
+  private handleBlur() { this._focused = false; this.emit('blur'); this.requestUpdate(); }
+  
   private handleClear(e: Event) {
     e.stopPropagation();
     this.value = '';
@@ -180,53 +92,24 @@ export class MyInput extends BaseElement {
     this.emit('change', '');
   }
 
-  public focus() {
-    const input = this.shadowRoot?.querySelector('input');
-    input?.focus();
-  }
-
-  public blur() {
-    const input = this.shadowRoot?.querySelector('input');
-    input?.blur();
-  }
+  public focus() { (this.shadowRoot?.querySelector('input') as HTMLInputElement)?.focus(); }
+  public blur() { (this.shadowRoot?.querySelector('input') as HTMLInputElement)?.blur(); }
 
   override render() {
-    const classes = [
-      this.size,
-      this._focused ? 'focused' : '',
-      this.disabled ? 'disabled' : '',
-      this.error ? 'error' : '',
-      this.value ? 'has-value' : '',
-    ].filter(Boolean).join(' ');
+    const classes = [this.size, this._focused ? 'focused' : '', this.disabled ? 'disabled' : '', this.error ? 'error' : '', this.value ? 'has-value' : ''].filter(Boolean).join(' ');
 
     return html`
       <div class="input-wrapper ${classes}">
         ${this.prefix ? html`<span class="prefix">${this.prefix}</span>` : ''}
-        <input
-          type=${this.type}
-          .value=${this.value}
-          placeholder=${this.placeholder}
-          name=${this.name}
-          ?disabled=${this.disabled}
-          ?readonly=${this.readonly}
-          @input=${this.handleInput}
-          @focus=${this.handleFocus}
-          @blur=${this.handleBlur}
-        />
+        <input type=${this.type} .value=${this.value} placeholder=${this.placeholder} name=${this.name} ?disabled=${this.disabled} ?readonly=${this.readonly} @input=${this.handleInput} @focus=${this.handleFocus} @blur=${this.handleBlur} />
         ${this.suffix ? html`<span class="suffix">${this.suffix}</span>` : ''}
-        ${this.clearable && this.value && !this.disabled
-          ? html`<span class="clear-btn" @click=${this.handleClear}>✕</span>`
-          : ''}
+        ${this.clearable && this.value && !this.disabled ? html`<span class="clear-btn" @click=${this.handleClear}>✕</span>` : ''}
       </div>
-      ${this.error && this.errorMessage
-        ? html`<div class="error-message">${this.errorMessage}</div>`
-        : ''}
+      ${this.error && this.errorMessage ? html`<div class="error-message">${this.errorMessage}</div>` : ''}
     `;
   }
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
-    'my-input': MyInput;
-  }
+  interface HTMLElementTagNameMap { 'my-input': MyInput; }
 }

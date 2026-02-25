@@ -1,5 +1,5 @@
 /**
- * Button 按钮组件 - 现代风格
+ * Button 按钮组件 - 黑白灰系配色
  */
 
 import { html, css, CSSResultGroup } from 'lit';
@@ -18,14 +18,8 @@ export class MyButton extends BaseElement {
   static override styles: CSSResultGroup = [
     ...BaseElement.styles,
     css`
-      :host {
-        display: inline-block;
-      }
-      
-      :host([block]) {
-        display: block;
-        width: 100%;
-      }
+      :host { display: inline-block; }
+      :host([block]) { display: block; width: 100%; }
 
       button {
         display: inline-flex;
@@ -40,7 +34,6 @@ export class MyButton extends BaseElement {
         outline: none;
         white-space: nowrap;
         user-select: none;
-        text-decoration: none;
         position: relative;
         overflow: hidden;
       }
@@ -49,65 +42,25 @@ export class MyButton extends BaseElement {
         box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
       }
 
-      button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        pointer-events: none;
-      }
+      button:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 
       /* 尺寸 */
-      button.xs {
-        height: 24px;
-        padding: 0 10px;
-        font-size: var(--font-size-xs);
-        border-radius: var(--radius-sm);
-      }
-      
-      button.sm {
-        height: 32px;
-        padding: 0 12px;
-        font-size: var(--font-size-sm);
-        border-radius: var(--radius-md);
-      }
-      
-      button.md {
-        height: 36px;
-        padding: 0 16px;
-        font-size: var(--font-size-sm);
-        border-radius: var(--radius-md);
-      }
-      
-      button.lg {
-        height: 44px;
-        padding: 0 20px;
-        font-size: var(--font-size-md);
-        border-radius: var(--radius-lg);
-      }
-
-      button.xl {
-        height: 52px;
-        padding: 0 24px;
-        font-size: var(--font-size-lg);
-        border-radius: var(--radius-lg);
-      }
+      button.xs { height: 24px; padding: 0 10px; font-size: var(--font-size-xs); border-radius: var(--radius-sm); }
+      button.sm { height: 32px; padding: 0 12px; font-size: var(--font-size-sm); border-radius: var(--radius-md); }
+      button.md { height: 36px; padding: 0 16px; font-size: var(--font-size-sm); border-radius: var(--radius-md); }
+      button.lg { height: 44px; padding: 0 20px; font-size: var(--font-size-md); border-radius: var(--radius-lg); }
+      button.xl { height: 52px; padding: 0 24px; font-size: var(--font-size-lg); border-radius: var(--radius-lg); }
 
       /* 形状 */
-      button.round {
-        border-radius: var(--radius-full);
-      }
-
-      button.circle {
-        border-radius: 50%;
-        padding: 0;
-      }
-      
+      button.round { border-radius: var(--radius-full); }
+      button.circle { border-radius: 50%; padding: 0; }
       button.circle.xs { width: 24px; }
       button.circle.sm { width: 32px; }
       button.circle.md { width: 36px; }
       button.circle.lg { width: 44px; }
       button.circle.xl { width: 52px; }
 
-      /* Primary */
+      /* Primary - 黑色 */
       button.primary {
         background: var(--color-primary);
         color: white;
@@ -120,10 +73,9 @@ export class MyButton extends BaseElement {
       button.primary:active:not(:disabled) {
         background: var(--color-primary-active);
         transform: translateY(0);
-        box-shadow: none;
       }
 
-      /* Secondary */
+      /* Secondary - 浅灰 */
       button.secondary {
         background: var(--color-background-tertiary);
         color: var(--color-text);
@@ -133,7 +85,7 @@ export class MyButton extends BaseElement {
         color: var(--color-primary);
       }
 
-      /* Outline */
+      /* Outline - 边框 */
       button.outline {
         background: transparent;
         color: var(--color-primary);
@@ -144,51 +96,37 @@ export class MyButton extends BaseElement {
         background: var(--color-primary-light);
       }
 
-      /* Ghost */
+      /* Ghost - 透明 */
       button.ghost {
         background: transparent;
         color: var(--color-text);
       }
       button.ghost:hover:not(:disabled) {
         background: var(--color-background-hover);
-        color: var(--color-text);
       }
 
-      /* Danger */
+      /* Danger - 深红灰 */
       button.danger {
-        background: var(--color-error);
+        background: #991b1b;
         color: white;
       }
       button.danger:hover:not(:disabled) {
-        background: #dc2626;
+        background: #7f1d1d;
         transform: translateY(-1px);
         box-shadow: var(--shadow-md);
       }
 
-      /* Block */
-      button.block {
-        width: 100%;
-      }
+      button.block { width: 100%; }
 
-      /* Loading */
-      .loading-wrapper {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-      }
-
+      .loading-wrapper { display: inline-flex; align-items: center; gap: var(--spacing-sm); }
       .spinner {
-        width: 14px;
-        height: 14px;
+        width: 14px; height: 14px;
         border: 2px solid currentColor;
         border-right-color: transparent;
         border-radius: 50%;
         animation: spin 0.6s linear infinite;
       }
-
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
+      @keyframes spin { to { transform: rotate(360deg); } }
     `,
   ];
 
@@ -202,29 +140,16 @@ export class MyButton extends BaseElement {
   }
 
   override render() {
-    const classes = [
-      this.variant,
-      this.size,
-      this.shape !== 'default' ? this.shape : '',
-      this.block ? 'block' : '',
-    ].filter(Boolean).join(' ');
+    const classes = [this.variant, this.size, this.shape !== 'default' ? this.shape : '', this.block ? 'block' : ''].filter(Boolean).join(' ');
 
     return html`
-      <button
-        class=${classes}
-        ?disabled=${this.disabled || this.loading}
-        @click=${this.handleClick}
-      >
-        ${this.loading 
-          ? html`<span class="spinner"></span><span class="loading-wrapper"><slot></slot></span>` 
-          : html`<slot></slot>`}
+      <button class=${classes} ?disabled=${this.disabled || this.loading} @click=${this.handleClick}>
+        ${this.loading ? html`<span class="spinner"></span><span class="loading-wrapper"><slot></slot></span>` : html`<slot></slot>`}
       </button>
     `;
   }
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
-    'my-button': MyButton;
-  }
+  interface HTMLElementTagNameMap { 'my-button': MyButton; }
 }
