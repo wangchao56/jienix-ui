@@ -10,5 +10,9 @@ const config: StorybookConfig = {
     '@storybook/addon-docs',
   ],
   framework: '@storybook/web-components-vite',
+  // GitHub Pages 配置
+  docs: {
+    autodocs: 'tag',
+  },
 };
 export default config;
