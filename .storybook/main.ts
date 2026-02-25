@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/web-components-vite';
 
 const config: StorybookConfig = {
   stories: [
-    '../src/**/*.mdx',
+    '../src/index.mdx',
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
@@ -10,7 +10,6 @@ const config: StorybookConfig = {
     '@storybook/addon-docs',
   ],
   framework: '@storybook/web-components-vite',
-  // GitHub Pages 配置
   docs: {
     autodocs: 'tag',
   },

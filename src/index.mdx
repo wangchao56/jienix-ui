@@ -1,0 +1,46 @@
+import { Meta, Title, Primary, Controls, Story, Canvas, Source } from '@storybook/blocks';
+import * as ButtonStories from './components/button/button.stories';
+import * as InputStories from './components/input/input.stories';
+
+<Meta of={ButtonStories} />
+
+<div style={{ padding: '20px', fontFamily: 'Inter, sans-serif' }}>
+  
+# Jienix UI
+
+一个基于 Lit 的现代 Web Components UI 组件库。
+
+## 特性
+
+- 🌲 **轻量级** - 基于 Lit，体积小
+- 🎨 **现代风格** - 黑白灰系配色，简洁美观
+- 📦 **Web Components** - 框架无关，可在任何项目中使用
+- 📚 **完整文档** - Storybook 驱动，所见即所得
+
+## 安装
+
+<Source code={`npm install jienix-ui`} language="bash" />
+
+## 快速开始
+
+<Canvas>
+  <Story of={ButtonStories.Primary} />
+</Canvas>
+
+## 组件
+
+### Button 按钮
+
+按钮组件，支持多种变体和尺寸。
+
+<Controls />
+
+### Input 输入框
+
+输入框组件，支持多种类型和状态。
+
+<Canvas>
+  <Story of={InputStories.Default} />
+</Canvas>
+
+</div>
