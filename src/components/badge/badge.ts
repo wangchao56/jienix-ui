@@ -1,10 +1,16 @@
 /**
  * Badge 徽标组件 - 黑白灰系配色
+ * 支持8个方位和偏移量
  */
 
 import { html, css, CSSResultGroup } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { BaseElement } from '../base';
+
+export type BadgePosition = 
+  | 'top-left' | 'top-center' | 'top-right'
+  | 'middle-left' | 'middle-right'
+  | 'bottom-left' | 'bottom-center' | 'bottom-right';
 
 @customElement('my-badge')
 export class MyBadge extends BaseElement {
@@ -13,6 +19,9 @@ export class MyBadge extends BaseElement {
   @property({ type: Boolean }) dot = false;
   @property({ type: String }) color = '';
   @property({ type: Boolean }) showZero = false;
+  @property({ type: String }) position: BadgePosition = 'top-right';
+  @property({ type: Number }) offsetX = 0;
+  @property({ type: Number }) offsetY = 0;
 
   static override styles: CSSResultGroup = [
     ...BaseElement.styles,
@@ -23,7 +32,13 @@ export class MyBadge extends BaseElement {
         line-height: 1;
       }
 
+      .badge-wrapper {
+        position: relative;
+        display: inline-block;
+      }
+
       .badge {
+        position: absolute;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -36,6 +51,9 @@ export class MyBadge extends BaseElement {
         border-radius: var(--radius-full);
         background: var(--color-error);
         color: white;
+        white-space: nowrap;
+        transform: translate(-50%, -50%);
+        transition: all var(--transition-fast);
       }
 
       .badge.dot {
@@ -43,10 +61,67 @@ export class MyBadge extends BaseElement {
         width: 8px;
         height: 8px;
         padding: 0;
+        transform: translate(-50%, -50%);
       }
 
       .badge.hidden {
         display: none;
+      }
+
+      /* 8个方位 */
+      .badge.top-left {
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+      }
+      .badge.top-center {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .badge.top-right {
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+      }
+      .badge.middle-left {
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -50%);
+      }
+      .badge.middle-right {
+        top: 50%;
+        right: 0;
+        transform: translate(50%, -50%);
+      }
+      .badge.bottom-left {
+        bottom: 0;
+        left: 0;
+        transform: translate(-50%, 50%);
+      }
+      .badge.bottom-center {
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 50%);
+      }
+      .badge.bottom-right {
+        bottom: 0;
+        right: 0;
+        transform: translate(50%, 50%);
+      }
+
+      /* 偏移量 */
+      .badge.offset {
+        transform: translate(
+          calc(-50% + var(--offset-x, 0px)),
+          calc(-50% + var(--offset-y, 0px))
+        );
+      }
+      .badge.dot.offset {
+        transform: translate(
+          calc(-50% + var(--offset-x, 0px)),
+          calc(-50% + var(--offset-y, 0px))
+        );
       }
     `,
   ];
@@ -60,20 +135,38 @@ export class MyBadge extends BaseElement {
 
   override render() {
     const showBadge = this.showZero || this.count > 0;
+    const hasOffset = this.offsetX !== 0 || this.offsetY !== 0;
     const style = this.color ? `background: ${this.color};` : '';
+    const offsetStyle = hasOffset 
+      ? `--offset-x: ${this.offsetX}px; --offset-y: ${this.offsetY}px;` 
+      : '';
+
+    const badgeClasses = [
+      this.position,
+      hasOffset ? 'offset' : '',
+    ].filter(Boolean).join(' ');
 
     if (this.dot) {
       return html`
-        <span class="badge dot ${showBadge ? '' : 'hidden'}" style="${style}"></span>
-        <slot></slot>
+        <div class="badge-wrapper">
+          <slot></slot>
+          <span 
+            class="badge dot ${badgeClasses} ${showBadge ? '' : 'hidden'}" 
+            style="${style} ${offsetStyle}"
+          ></span>
+        </div>
       `;
     }
 
     return html`
-      <slot></slot>
-      ${showBadge ? html`
-        <span class="badge" style="${style}">${this.displayCount}</span>
-      ` : ''}
+      <div class="badge-wrapper">
+        <slot></slot>
+        ${showBadge ? html`
+          <span class="badge ${badgeClasses}" style="${style} ${offsetStyle}">
+            ${this.displayCount}
+          </span>
+        ` : ''}
+      </div>
     `;
   }
 }
