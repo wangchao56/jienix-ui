@@ -1,5 +1,1 @@
-/**
- * 组件导出
- */
-
-export { MyInput } from './input';
+export { MyInput } from './input.js';

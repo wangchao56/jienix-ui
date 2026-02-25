@@ -1,5 +1,5 @@
 /**
- * Input 输入框组件
+ * Input 输入框组件 - 现代风格
  */
 
 import { html, css, CSSResultGroup } from 'lit';
@@ -8,14 +8,18 @@ import { BaseElement } from '../base';
 
 @customElement('my-input')
 export class MyInput extends BaseElement {
-  @property({ type: String }) type: 'text' | 'password' | 'email' | 'number' = 'text';
+  @property({ type: String }) type: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' = 'text';
   @property({ type: String }) placeholder = '';
   @property({ type: String }) value = '';
   @property({ type: String }) name = '';
-  @property({ type: Boolean }) override disabled = false;
+  @property({ type: String }) prefix = '';
+  @property({ type: String }) suffix = '';
+  @property({ type: Boolean }) disabled = false;
   @property({ type: Boolean }) readonly = false;
   @property({ type: Boolean }) clearable = false;
-  @property({ type: String }) override size: 'sm' | 'md' | 'lg' = 'md';
+  @property({ type: Boolean }) error = false;
+  @property({ type: String }) errorMessage = '';
+  @property({ type: String }) size: 'sm' | 'md' | 'lg' = 'md';
 
   static override styles: CSSResultGroup = [
     ...BaseElement.styles,
@@ -26,33 +30,61 @@ export class MyInput extends BaseElement {
       }
 
       .input-wrapper {
-        position: relative;
         display: flex;
         align-items: center;
         background: var(--color-background);
         border: 1px solid var(--color-border);
-        border-radius: var(--radius-sm);
+        border-radius: var(--radius-md);
         transition: all var(--transition-fast);
+        overflow: hidden;
       }
 
-      .input-wrapper:hover:not(.disabled):not(.focused) {
-        border-color: var(--color-primary);
+      .input-wrapper:hover:not(.disabled) {
+        border-color: var(--color-border-hover);
       }
 
       .input-wrapper.focused {
         border-color: var(--color-primary);
-        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        box-shadow: 0 0 0 3px var(--color-primary-light);
+      }
+
+      .input-wrapper.error {
+        border-color: var(--color-error);
+      }
+
+      .input-wrapper.error.focused {
+        box-shadow: 0 0 0 3px var(--color-error-light);
       }
 
       .input-wrapper.disabled {
-        background: var(--color-background-hover);
+        background: var(--color-background-secondary);
         cursor: not-allowed;
         opacity: 0.6;
       }
 
+      /* 前缀/后缀 */
+      .prefix, .suffix {
+        display: flex;
+        align-items: center;
+        padding: 0 var(--spacing-sm);
+        color: var(--color-text-tertiary);
+        font-size: var(--font-size-sm);
+        white-space: nowrap;
+      }
+
+      .prefix {
+        padding-right: 0;
+      }
+
+      .suffix {
+        padding-left: 0;
+      }
+
+      /* 输入框 */
       input {
         flex: 1;
         width: 100%;
+        height: 100%;
         border: none;
         outline: none;
         background: transparent;
@@ -61,7 +93,7 @@ export class MyInput extends BaseElement {
       }
 
       input::placeholder {
-        color: var(--color-text-disabled);
+        color: var(--color-text-tertiary);
       }
 
       input:disabled {
@@ -69,38 +101,53 @@ export class MyInput extends BaseElement {
       }
 
       /* 尺寸 */
+      .input-wrapper.sm {
+        height: 32px;
+      }
       .input-wrapper.sm input {
-        padding: 4px 8px;
+        padding: 4px 10px;
         font-size: var(--font-size-sm);
       }
       
+      .input-wrapper.md {
+        height: 36px;
+      }
       .input-wrapper.md input {
-        padding: 8px 12px;
+        padding: 6px 12px;
         font-size: var(--font-size-sm);
       }
       
+      .input-wrapper.lg {
+        height: 44px;
+      }
       .input-wrapper.lg input {
-        padding: 12px 16px;
+        padding: 8px 14px;
         font-size: var(--font-size-md);
       }
 
       /* 清除按钮 */
       .clear-btn {
         display: none;
-        padding: 0 8px;
-        color: var(--color-text-secondary);
+        padding: 0 var(--spacing-sm);
+        color: var(--color-text-tertiary);
         cursor: pointer;
-        font-size: 14px;
-      }
-
-      .input-wrapper:hover .clear-btn:not(:empty),
-      .input-wrapper.focused .clear-btn:not(:empty) {
-        display: flex;
-        align-items: center;
+        font-size: var(--font-size-sm);
+        transition: color var(--transition-fast);
       }
 
       .clear-btn:hover {
         color: var(--color-text);
+      }
+
+      .input-wrapper.has-value:not(.disabled) .clear-btn {
+        display: flex;
+      }
+
+      /* 错误消息 */
+      .error-message {
+        margin-top: var(--spacing-xs);
+        color: var(--color-error);
+        font-size: var(--font-size-xs);
       }
     `,
   ];
@@ -130,6 +177,7 @@ export class MyInput extends BaseElement {
     this.value = '';
     this.emit('input', '');
     this.emit('clear');
+    this.emit('change', '');
   }
 
   public focus() {
@@ -147,11 +195,13 @@ export class MyInput extends BaseElement {
       this.size,
       this._focused ? 'focused' : '',
       this.disabled ? 'disabled' : '',
+      this.error ? 'error' : '',
+      this.value ? 'has-value' : '',
     ].filter(Boolean).join(' ');
 
     return html`
       <div class="input-wrapper ${classes}">
-        <slot name="prefix"></slot>
+        ${this.prefix ? html`<span class="prefix">${this.prefix}</span>` : ''}
         <input
           type=${this.type}
           .value=${this.value}
@@ -163,11 +213,14 @@ export class MyInput extends BaseElement {
           @focus=${this.handleFocus}
           @blur=${this.handleBlur}
         />
+        ${this.suffix ? html`<span class="suffix">${this.suffix}</span>` : ''}
         ${this.clearable && this.value && !this.disabled
           ? html`<span class="clear-btn" @click=${this.handleClear}>✕</span>`
           : ''}
-        <slot name="suffix"></slot>
       </div>
+      ${this.error && this.errorMessage
+        ? html`<div class="error-message">${this.errorMessage}</div>`
+        : ''}
     `;
   }
 }

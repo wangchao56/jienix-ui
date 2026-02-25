@@ -3,3 +3,6 @@ dist/
 dist-demo/
 *.log
 .DS_Store
+
+*storybook.log
+storybook-static

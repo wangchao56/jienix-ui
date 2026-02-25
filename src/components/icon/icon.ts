@@ -3,7 +3,8 @@
  * 内置常用图标，支持自定义 SVG
  */
 
-import { html, css, CSSResultGroup, unsafeSVG } from 'lit';
+import { html, css, CSSResultGroup } from 'lit';
+import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import { customElement, property } from 'lit/decorators.js';
 import { BaseElement } from '../base';
 

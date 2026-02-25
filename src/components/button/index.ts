@@ -1,5 +1,1 @@
-/**
- * 组件导出
- */
-
-export { MyButton } from './button';
+export { MyButton } from './button.js';
