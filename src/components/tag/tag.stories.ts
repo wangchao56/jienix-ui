@@ -63,3 +63,41 @@ export const CustomColor: Story = {
   args: { color: '#10b981' },
   render: renderTag,
 };
+
+export const TagGroup: Story = {
+  render: () => html`
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <my-tag>标签一</my-tag>
+      <my-tag variant="outline">标签二</my-tag>
+      <my-tag variant="filled">标签三</my-tag>
+      <my-tag color="#10b981">成功</my-tag>
+      <my-tag color="#f59e0b">警告</my-tag>
+      <my-tag color="#ef4444">错误</my-tag>
+    </div>
+  `,
+};
+
+export const ClosableGroup: Story = {
+  render: () => html`
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <my-tag closable>可关闭</my-tag>
+      <my-tag closable variant="outline">可关闭</my-tag>
+      <my-tag closable variant="filled">可关闭</my-tag>
+    </div>
+  `,
+};
+
+export const ColorTags: Story = {
+  render: () => html`
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <my-tag color="#1f2937">黑色</my-tag>
+      <my-tag color="#6b7280">灰色</my-tag>
+      <my-tag color="#10b981">绿色</my-tag>
+      <my-tag color="#3b82f6">蓝色</my-tag>
+      <my-tag color="#f59e0b">黄色</my-tag>
+      <my-tag color="#ef4444">红色</my-tag>
+      <my-tag color="#8b5cf6">紫色</my-tag>
+      <my-tag color="#ec4899">粉色</my-tag>
+    </div>
+  `,
+};

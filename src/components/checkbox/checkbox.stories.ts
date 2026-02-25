@@ -59,3 +59,27 @@ export const Small: Story = {
   args: { size: 'sm', label: '小号' },
   render: renderCheckbox,
 };
+
+export const Medium: Story = {
+  args: { size: 'md', label: '中号' },
+  render: renderCheckbox,
+};
+
+export const CheckboxGroup: Story = {
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <my-checkbox label="选项一" checked></my-checkbox>
+      <my-checkbox label="选项二"></my-checkbox>
+      <my-checkbox label="选项三"></my-checkbox>
+    </div>
+  `,
+};
+
+export const DisabledGroup: Story = {
+  render: () => html`
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <my-checkbox label="禁用选项" disabled checked></my-checkbox>
+      <my-checkbox label="禁用选项" disabled></my-checkbox>
+    </div>
+  `,
+};
