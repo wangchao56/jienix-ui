@@ -7,6 +7,9 @@ import '../src/components/icon/icon.js';
 import '../src/components/card/card.js';
 import '../src/components/checkbox/checkbox.js';
 import '../src/components/switch/switch.js';
+import '../src/components/tag/tag.js';
+import '../src/components/badge/badge.js';
+import '../src/components/modal/modal.js';
 
 const globalStyles = html`
   <style>
@@ -55,9 +58,11 @@ const globalStyles = html`
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
       --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
       --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
       --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
     }
+    body { margin: 0; padding: 24px; font-family: var(--font-family); }
   </style>
 `;
 

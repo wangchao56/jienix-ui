@@ -12,6 +12,9 @@ export { MyIcon } from './components/icon/icon.js';
 export { MyCard } from './components/card/card.js';
 export { MyCheckbox } from './components/checkbox/checkbox.js';
 export { MySwitch } from './components/switch/switch.js';
+export { MyTag } from './components/tag/tag.js';
+export { MyBadge } from './components/badge/badge.js';
+export { MyModal } from './components/modal/modal.js';
 
 // 基类
 export { BaseElement } from './components/base.js';
