@@ -7,7 +7,7 @@
 - 🌲 **轻量级** - 基于 Lit，体积小
 - 🎨 **现代风格** - 黑白灰系配色，简洁美观
 - 📦 **Web Components** - 框架无关，可在任何项目中使用
-- 📚 **完整文档** - Storybook 驱动，所见即所得
+- 📚 **完整文档** - [Storybook](https://wangchao56.github.io/jienix-ui/index.html) 驱动，所见即所得
 
 ## 安装
 

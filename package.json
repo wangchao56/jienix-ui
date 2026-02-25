@@ -17,7 +17,7 @@
     "test": "web-test-runner \"src/**/*.test.ts\" --node-resolve",
     "lint": "eslint src --ext .ts",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build -d docs"
   },
   "keywords": [
     "web-components",
