@@ -15,6 +15,7 @@ export { MySwitch } from './components/switch/switch.js';
 export { MyTag } from './components/tag/tag.js';
 export { MyBadge } from './components/badge/badge.js';
 export { MyModal } from './components/modal/modal.js';
+export { MyCarousel } from './components/carousel/carousel.js';
 
 // 基类
 export { BaseElement } from './components/base.js';
