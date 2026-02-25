@@ -19,62 +19,43 @@ const meta: Meta = {
     label: '复选框',
     size: 'md',
   },
-  render: (args) => {
-    return html`
-      <my-checkbox
-        ?checked="${args.checked}"
-        ?disabled="${args.disabled}"
-        ?indeterminate="${args.indeterminate}"
-        label="${args.label}"
-        size="${args.size}"
-      ></my-checkbox>
-    `;
-  },
 };
 
 export default meta;
 type Story = StoryObj;
 
+const renderCheckbox = (args: any) => {
+  return html`
+    <my-checkbox
+      ?checked="${args.checked}"
+      ?disabled="${args.disabled}"
+      ?indeterminate="${args.indeterminate}"
+      label="${args.label}"
+      size="${args.size}"
+    ></my-checkbox>
+  `;
+};
+
 export const Default: Story = {
-  args: {
-    label: '同意用户协议',
-  },
+  render: renderCheckbox,
 };
 
 export const Checked: Story = {
-  args: {
-    checked: true,
-    label: '已选中状态',
-  },
+  args: { checked: true, label: '已选中' },
+  render: renderCheckbox,
 };
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-    label: '禁用状态',
-  },
+  args: { disabled: true, label: '禁用' },
+  render: renderCheckbox,
 };
 
 export const Indeterminate: Story = {
-  args: {
-    indeterminate: true,
-    label: '不确定状态',
-  },
+  args: { indeterminate: true, label: '不确定状态' },
+  render: renderCheckbox,
 };
 
 export const Small: Story = {
-  args: {
-    size: 'sm',
-    label: '小号复选框',
-  },
-};
-
-export const CheckboxGroup: Story = {
-  render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <my-checkbox label="选项一"></my-checkbox>
-      <my-checkbox label="选项二"></my-checkbox>
-      <my-checkbox label="选项三"></my-checkbox>
-    </div>
-  `,
+  args: { size: 'sm', label: '小号' },
+  render: renderCheckbox,
 };

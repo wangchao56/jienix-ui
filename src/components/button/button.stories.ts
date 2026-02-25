@@ -6,33 +6,12 @@ const meta: Meta = {
   component: 'my-button',
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary', 'outline', 'ghost', 'danger'],
-      description: '按钮变体',
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: '按钮尺寸',
-    },
-    disabled: {
-      control: 'boolean',
-      description: '是否禁用',
-    },
-    loading: {
-      control: 'boolean',
-      description: '是否加载中',
-    },
-    block: {
-      control: 'boolean',
-      description: '是否块级按钮',
-    },
-    shape: {
-      control: { type: 'select' },
-      options: ['default', 'round', 'circle'],
-      description: '按钮形状',
-    },
+    variant: { control: 'select', options: ['primary', 'secondary', 'outline', 'ghost', 'danger'], description: '按钮变体' },
+    size: { control: 'select', options: ['xs', 'sm', 'md', 'lg', 'xl'], description: '按钮尺寸' },
+    disabled: { control: 'boolean', description: '是否禁用' },
+    loading: { control: 'boolean', description: '是否加载中' },
+    block: { control: 'boolean', description: '是否块级按钮' },
+    shape: { control: 'select', options: ['default', 'round', 'circle'], description: '按钮形状' },
   },
   args: {
     variant: 'primary',
@@ -62,38 +41,32 @@ const renderButton = (args: any) => {
   `;
 };
 
+export const Default: Story = {
+  render: renderButton,
+};
+
 export const Primary: Story = {
-  args: {
-    variant: 'primary',
-  },
+  args: { variant: 'primary' },
   render: renderButton,
 };
 
 export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-  },
+  args: { variant: 'secondary' },
   render: renderButton,
 };
 
 export const Outline: Story = {
-  args: {
-    variant: 'outline',
-  },
+  args: { variant: 'outline' },
   render: renderButton,
 };
 
 export const Ghost: Story = {
-  args: {
-    variant: 'ghost',
-  },
+  args: { variant: 'ghost' },
   render: renderButton,
 };
 
 export const Danger: Story = {
-  args: {
-    variant: 'danger',
-  },
+  args: { variant: 'danger' },
   render: renderButton,
 };
 
@@ -110,23 +83,17 @@ export const Sizes: Story = {
 };
 
 export const Loading: Story = {
-  args: {
-    loading: true,
-  },
+  args: { loading: true },
   render: renderButton,
 };
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
+  args: { disabled: true },
   render: renderButton,
 };
 
 export const Block: Story = {
-  args: {
-    block: true,
-  },
+  args: { block: true },
   render: renderButton,
 };
 
@@ -136,32 +103,6 @@ export const Shapes: Story = {
       <my-button shape="default">Default</my-button>
       <my-button shape="round">Round</my-button>
       <my-button shape="circle">+</my-button>
-    </div>
-  `,
-};
-
-export const AllVariants: Story = {
-  render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 16px;">
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <my-button variant="primary">Primary</my-button>
-        <my-button variant="secondary">Secondary</my-button>
-        <my-button variant="outline">Outline</my-button>
-        <my-button variant="ghost">Ghost</my-button>
-        <my-button variant="danger">Danger</my-button>
-      </div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <my-button variant="primary" size="xs">xs</my-button>
-        <my-button variant="primary" size="sm">sm</my-button>
-        <my-button variant="primary" size="md">md</my-button>
-        <my-button variant="primary" size="lg">lg</my-button>
-        <my-button variant="primary" size="xl">xl</my-button>
-      </div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <my-button variant="primary" disabled>Disabled</my-button>
-        <my-button variant="primary" loading>Loading</my-button>
-        <my-button variant="primary" block>Block Button</my-button>
-      </div>
     </div>
   `,
 };

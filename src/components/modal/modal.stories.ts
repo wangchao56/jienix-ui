@@ -18,51 +18,41 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const Default: Story = {
-  render: () => html`
-    <my-modal title="提示" open>
+const renderModal = (args: any) => {
+  return html`
+    <my-modal
+      ?open="${args.open}"
+      title="${args.title}"
+      width="${args.width}"
+      ?maskClosable="${args.maskClosable}"
+      ?footer="${args.footer}"
+    >
       <p>这是一个对话框内容。</p>
       <p>你可以在这里放置任何内容。</p>
     </my-modal>
-  `,
+  `;
+};
+
+export const Default: Story = {
+  render: renderModal,
 };
 
 export const NoFooter: Story = {
   args: { footer: false },
-  render: (args) => html`
-    <my-modal title="无底部" .footer=${args.footer} open>
-      <p>没有底部的对话框。</p>
-    </my-modal>
-  `,
+  render: renderModal,
 };
 
 export const SmallWidth: Story = {
   args: { width: '360px' },
-  render: (args) => html`
-    <my-modal title="小对话框" .width=${args.width} open>
-      <p>窄宽度对话框。</p>
-    </my-modal>
-  `,
+  render: renderModal,
 };
 
 export const LargeWidth: Story = {
   args: { width: '800px' },
-  render: (args) => html`
-    <my-modal title="大对话框" .width=${args.width} open>
-      <p>宽宽度对话框，可以放置更多内容。</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </my-modal>
-  `,
+  render: renderModal,
 };
 
-export const WithFooterButtons: Story = {
-  render: () => html`
-    <my-modal title="确认操作" open>
-      <p>确定要执行这个操作吗？</p>
-      <div slot="footer">
-        <my-button>取消</my-button>
-        <my-button variant="primary">确定</my-button>
-      </div>
-    </my-modal>
-  `,
+export const CustomTitle: Story = {
+  args: { title: '自定义标题' },
+  render: renderModal,
 };

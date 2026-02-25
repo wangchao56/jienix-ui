@@ -17,44 +17,49 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+const renderTag = (args: any) => {
+  return html`
+    <my-tag
+      variant="${args.variant}"
+      size="${args.size}"
+      ?closable="${args.closable}"
+      color="${args.color}"
+    >
+      Tag
+    </my-tag>
+  `;
+};
+
 export const Default: Story = {
-  render: () => html`<my-tag>Tag</my-tag>`,
+  render: renderTag,
 };
 
 export const Outline: Story = {
   args: { variant: 'outline' },
-  render: (args) => html`<my-tag variant="${args.variant}">Outline Tag</my-tag>`,
+  render: renderTag,
 };
 
 export const Filled: Story = {
   args: { variant: 'filled' },
-  render: (args) => html`<my-tag variant="${args.variant}">Filled Tag</my-tag>`,
+  render: renderTag,
 };
 
 export const Small: Story = {
   args: { size: 'sm' },
-  render: (args) => html`<my-tag size="${args.size}">Small Tag</my-tag>`,
+  render: renderTag,
+};
+
+export const Large: Story = {
+  args: { size: 'md' },
+  render: renderTag,
 };
 
 export const Closable: Story = {
   args: { closable: true },
-  render: (args) => html`<my-tag closable="${args.closable}">Closable Tag</my-tag>`,
+  render: renderTag,
 };
 
 export const CustomColor: Story = {
   args: { color: '#10b981' },
-  render: (args) => html`<my-tag color="${args.color}">Custom Color</my-tag>`,
-};
-
-export const TagList: Story = {
-  render: () => html`
-    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-      <my-tag>Default</my-tag>
-      <my-tag variant="outline">Outline</my-tag>
-      <my-tag variant="filled">Filled</my-tag>
-      <my-tag color="#10b981">Success</my-tag>
-      <my-tag color="#f59e0b">Warning</my-tag>
-      <my-tag color="#ef4444">Error</my-tag>
-    </div>
-  `,
+  render: renderTag,
 };

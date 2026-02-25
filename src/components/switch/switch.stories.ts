@@ -19,61 +19,48 @@ const meta: Meta = {
     checkedText: '',
     uncheckedText: '',
   },
-  render: (args) => {
-    return html`
-      <my-switch
-        ?checked="${args.checked}"
-        ?disabled="${args.disabled}"
-        size="${args.size}"
-        checkedText="${args.checkedText}"
-        uncheckedText="${args.uncheckedText}"
-      ></my-switch>
-    `;
-  },
 };
 
 export default meta;
 type Story = StoryObj;
 
-export const Default: Story = {};
+const renderSwitch = (args: any) => {
+  return html`
+    <my-switch
+      ?checked="${args.checked}"
+      ?disabled="${args.disabled}"
+      size="${args.size}"
+      checkedText="${args.checkedText}"
+      uncheckedText="${args.uncheckedText}"
+    ></my-switch>
+  `;
+};
+
+export const Default: Story = {
+  render: renderSwitch,
+};
 
 export const Checked: Story = {
-  args: {
-    checked: true,
-  },
+  args: { checked: true },
+  render: renderSwitch,
 };
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
+  args: { disabled: true },
+  render: renderSwitch,
 };
 
 export const Small: Story = {
-  args: {
-    size: 'sm',
-  },
+  args: { size: 'sm' },
+  render: renderSwitch,
 };
 
 export const Large: Story = {
-  args: {
-    size: 'lg',
-  },
+  args: { size: 'lg' },
+  render: renderSwitch,
 };
 
 export const WithLabel: Story = {
-  args: {
-    checkedText: '开',
-    uncheckedText: '关',
-  },
-};
-
-export const SwitchGroup: Story = {
-  render: () => html`
-    <div style="display: flex; flex-direction: column; gap: 16px;">
-      <my-switch checkedText="WiFi" uncheckedText="WiFi"></my-switch>
-      <my-switch checkedText="蓝牙" uncheckedText="蓝牙"></my-switch>
-      <my-switch checkedText="定位" uncheckedText="定位"></my-switch>
-    </div>
-  `,
+  args: { checkedText: '开', uncheckedText: '关' },
+  render: renderSwitch,
 };
